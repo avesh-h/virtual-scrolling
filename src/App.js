@@ -1,11 +1,12 @@
-import logo from "./logo.svg";
 import "./App.css";
 import MainComponent from "./components/MainComponent";
+import MainComponent2 from "./components/MainComponent2";
 
 function App() {
   return (
     <div className="App">
-      <MainComponent />
+      {/* <MainComponent /> */}
+      <MainComponent2 />
     </div>
   );
 }

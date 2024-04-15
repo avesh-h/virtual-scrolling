@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const setInitialState = (settings) => {
   const { itemHeight, amount, tolerance, minIndex, maxIndex, startIndex } =
@@ -32,7 +32,7 @@ const VirtualScroller = ({ get, settings, row }) => {
   const viewportElement = useRef(null);
 
   const runScroller = (e) => {
-    const { totalHeight, toleranceHeight, bufferedItems, settings } = state;
+    const { totalHeight, toleranceHeight, bufferedItems } = state;
     const index =
       settings?.minIndex +
       Math.floor(
@@ -60,6 +60,7 @@ const VirtualScroller = ({ get, settings, row }) => {
   useEffect(() => {
     viewportElement.current.scrollTop = state.initialPosition;
     if (!state?.initialPosition) {
+      //The component will re-render infinitly if the next component will be render half on the display. so that's why we use debounce to stop that.
       runScroller({ target: { scrollTop: 0 } });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +72,7 @@ const VirtualScroller = ({ get, settings, row }) => {
       ref={viewportElement}
       onScroll={runScroller}
       style={{
-        height: `${state?.viewportHeight}px`,
+        height: state?.viewportHeight,
         overflowY: "auto",
       }}
     >
@@ -82,4 +83,4 @@ const VirtualScroller = ({ get, settings, row }) => {
   );
 };
 
-export default VirtualScroller;
+export default React.memo(VirtualScroller);

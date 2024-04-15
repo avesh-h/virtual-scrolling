@@ -1,20 +1,14 @@
 import React from "react";
-import VirtualScroller from "./VirtualScroller";
+import VirtualScroller2 from "./VirtualScroller2";
 
 const SETTINGS = {
   itemHeight: 20,
   amount: 15,
-  tolerance: 2,
+  tolerance: 5,
   minIndex: 1,
-  maxIndex: 3000,
+  maxIndex: 2000,
   startIndex: 1,
 };
-
-const rowTemplate = (item) => (
-  <div className="item" key={item.index}>
-    {item.text}
-  </div>
-);
 
 const getData = (offset, limit) => {
   const data = [];
@@ -30,13 +24,22 @@ const getData = (offset, limit) => {
   }
   return data;
 };
-const MainComponent = () => {
-  console.log("parent");
+
+const rowTemplate = (item) => (
+  <div className="item" key={item.index}>
+    {item.text}
+  </div>
+);
+
+const MainComponent2 = () => {
   return (
-    <div>
-      <VirtualScroller get={getData} settings={SETTINGS} row={rowTemplate} />
-    </div>
+    <VirtualScroller2
+      className="viewport"
+      get={getData}
+      settings={SETTINGS}
+      row={rowTemplate}
+    />
   );
 };
 
-export default MainComponent;
+export default MainComponent2;
